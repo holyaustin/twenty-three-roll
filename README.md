@@ -79,3 +79,14 @@ npx hardhat run scripts/deploy.js --network apothem
 E-mail - <holyaustin@yahoo.com>
 
 stay connected on twitter @holyaustin
+
+
+Chain Details
+Important information to help identify and interact with this chain. To learn more, see our documentation.
+Chain ID
+2125031
+RPC (HTTP)
+https://bubs-sepolia.rpc.caldera.xyz/http
+RPC (WS)
+wss://bubs-sepolia.rpc.caldera.xyz/ws
+Native Token
