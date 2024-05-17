@@ -42,7 +42,7 @@ The smart contracts was done for the game token using XRC-20 template while the 
 
 ## Live DApp hosted on
 
-Live Dapp on Vercel: - <https://2023-game.vercel.app/>
+Live Dapp on Vercel: - <https://twenty-three-roll.vercel.app/>
 
 Deployed to XDC Chain:
   Genic contract deployed Address = "xdc7064f88f4840588b78014d6d3f4556FAAdF20893"
@@ -59,7 +59,7 @@ Deployed to XDC Chain:
 First, run the development server:
 
 ```text
-clone the repo https://github.com/holyaustin/2023.git
+clone the repo https://github.com/holyaustin/twenty-three-roll.git
 # next is to 
 npm install
 # then

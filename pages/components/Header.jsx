@@ -13,7 +13,7 @@ import {
 } from "@thirdweb-dev/react";
 import Image from "next/image";
 
-import ImgCoins from "../assets/coins4.jpg";
+// import ImgCoins from "../../public/assets/coins4.jpg";
 import shortenAddress from "../../utils/shortenAddress";
 
 const Header = () => {
@@ -104,7 +104,7 @@ const Header = () => {
           className="text-slate-300 px-3 flex items-center cursor-pointer"
           onClick={async () => await updateGameToken(address)}
         >
-          <Image src={ImgCoins} alt="" />
+          <Image src="assets/coins4.jpg" alt="" />
           Game Token balance: {gameToken}
         </div>
 
