@@ -13,7 +13,7 @@ import {
 } from "@thirdweb-dev/react";
 import Image from "next/image";
 
-// import ImgCoins from "../../public/assets/coins4.jpg";
+// import ImgCoins from "./coins4.jpg";
 import shortenAddress from "../../utils/shortenAddress";
 
 const Header = () => {
@@ -69,7 +69,7 @@ const Header = () => {
     );
   }
 
-  if (address && network[0].data.chain.id != 51) {
+  if (address && network[0].data.chain.id != 2125031) {
     return (
       <>
         <div className="bg-black opacity-85 fixed w-full h-full z-50 grid grid-cols-1 content-center">
@@ -81,15 +81,15 @@ const Header = () => {
               Wrong Network. You are connected to network {network[0].data.chain.name}
             </div>
             <div className="p-1">
-              Please switch to XDC Apothem Testnet to play this game.
+              Please switch to Bubs Testnet to play this game.
             </div>
 
             <div className="p-2">
               <button
                 className="text-black cursor-pointer rounded-full px-7 py-7 space-x-2 bg-lime-200 mt-7"
-                onClick={() => switchNetwork("XDCApothemNetwork", "0x33")}
+                onClick={() => switchNetwork("BubsTestnet", "2125031")}
               >
-                Switch to XDC Apothem Testnet              </button>
+                Switch to Bubs Testnet              </button>
             </div>
           </div>
         </div>
@@ -104,18 +104,25 @@ const Header = () => {
           className="text-slate-300 px-3 flex items-center cursor-pointer"
           onClick={async () => await updateGameToken(address)}
         >
-          <Image src="assets/coins4.jpg" alt="" />
+          
+          <Image
+              src="/coins4.jpg"
+              width={50}
+              height={50}
+              alt="Picture of game coin"
+            />
+            
           Game Token balance: {gameToken}
         </div>
 
 
-        <a href="https://simpleswap.io/coins/xdc-network" target="_blank" rel="noreferrer" style={{textDecoration: "none"}}>
+        <a href="https://bubs-sepolia.bridge.caldera.xyz/" target="_blank" rel="noreferrer" style={{textDecoration: "none"}}>
               <button className="font-bold mx-5 bg-red-800 text-white text-base rounded p-2 shadow-lg">
-                Buy XDC
+                Bridge ETH
               </button>
               </a>
 
-              <a href="https://app.xdcswaps.com/?=home" target="_blank" rel="noreferrer" style={{textDecoration: "none"}}>
+              <a href="https://app.uniswap.org/" target="_blank" rel="noreferrer" style={{textDecoration: "none"}}>
               <button className="font-bold mx-5 bg-red-800 text-white text-base rounded p-2 shadow-lg">
                 Swap Token
               </button>

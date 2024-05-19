@@ -3,7 +3,6 @@ import TransactionProvider from "../../context/TransactionContext";
 import { useNetwork } from "@thirdweb-dev/react";
 import { useAddress } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
-// import { useToken } from "@thirdweb-dev/react";
 import {
   // priceConsumerV3Abi,
   // priceConsumerV3Address,
@@ -12,25 +11,23 @@ import {
   providerUrl
 } from "../../utils/constants";
 
-console.log("luckyGameAddress", luckyGameAddress)
-
 const Trade = () => {
   const { trading, setTrading, updateGameToken, gameToken } =
     useContext(TransactionProvider);
   const network = useNetwork();
-  const [LGTTokenPrice, setLGTTokenPrice] = useState(0);
-  const [xdcToken, setXdcToken] = useState(0);
-  const [LGTToken, setLGTToken] = useState(0);
+  const [TTTTokenPrice, setTTTTokenPrice] = useState(0);
+  const [nativeToken, setNativeToken] = useState(0);
+  const [TTTToken, setTTTToken] = useState(0);
   const [tokenBalance, setTokenBalance] = useState(0);
   const address = useAddress();
-
+ 
   useEffect(() => {
     (async () => {
       const provider = new ethers.providers.JsonRpcProvider(providerUrl);
       let balance = await provider.getBalance(address);
       balance = Math.round(ethers.utils.formatEther(balance) * 1e4) / 1e4;
       setTokenBalance(balance);
-      updateXrcToken(10);
+      updateXrcToken(0);
     })();
   }, [address]);
 
@@ -44,41 +41,43 @@ const Trade = () => {
         provider
       );
  */
-      let roundData = 1;
+      let roundData = 10000000;
       // roundData = Math.round((roundData / 1000000) * 1e2) / 1e2;
       console.log("roundData", roundData);
-      setLGTTokenPrice(roundData);
-      console.log("xdcToken", xdcToken);
-      setLGTToken((Math.round(roundData * xdcToken) * 1e4) / 1e4);
+      setTTTTokenPrice(roundData);
+      console.log("nativeToken", nativeToken);
+      setTTTToken((Math.round(roundData * nativeToken) * 1e4) / 1e4);
     })();
   }, [tokenBalance]);
 
   const updateLGTToken = (val) => {
-    setLGTToken(val);
-    setXdcToken(Math.round((val / LGTTokenPrice) * 10000) / 10000);
+    setTTTToken(val);
+    setNativeToken(Math.round((val / TTTTokenPrice) * 10000) / 10000);
   };
 
   const updateXrcToken = (val) => {
-    setXdcToken(val);
-    setLGTToken(Math.round(LGTTokenPrice * val * 10000) / 10000);
+    setNativeToken(val);
+    setTTTToken(Math.round(TTTTokenPrice * val * 10000) / 10000);
   };
 
   const buyToken = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
 
-    const luckySevenGame = new ethers.Contract(
+    const luckyGame = new ethers.Contract(
       luckyGameAddress,
       luckySevenGameAbi,
       provider.getSigner()
     );
-    await luckySevenGame.buyToken(ethers.utils.parseEther(LGTToken.toString()), {
+    console.log("TToken to buy -", ethers.utils.parseEther(TTTToken.toString()))
+    console.log("nativeToken to buy -", ethers.utils.parseEther(nativeToken.toString()))
+    await luckyGame.buyToken(ethers.utils.parseEther(TTTToken.toString()), {
       from: address,
-      value: ethers.utils.parseEther(xdcToken.toString()),
-      gasLimit: 3000000
+      value: ethers.utils.parseEther(nativeToken.toString()),
+      //gasLimit: 3000000
     });
 
-    alert("You have successfully purchased your LGT game token ");
-    console.log("You have successfully purchased your LGT game token ");
+    alert("You have successfully purchased your TTT game token ");
+    console.log("You have successfully purchased your TTT game token ");
   };
 
   return (
@@ -93,13 +92,13 @@ const Trade = () => {
         <input
           type="text"
           className="border-1 text-xl"
-          value={xdcToken}
+          value={nativeToken}
           onChange={(e) => updateXrcToken(e.target.value)}
         />
         <div className="bg-slate-200 w-40 p-1 shadow-md rounded">
           <select className="bg-slate-200 w-full">
             <option value="XDC" defaultValue={true}>
-              XDC
+              ETH
             </option>
           </select>
         </div>
@@ -111,7 +110,7 @@ const Trade = () => {
           onClick={() => updateXrcToken(tokenBalance)}
         >
           Balance: {tokenBalance}
-          {tokenBalance != xdcToken && (
+          {tokenBalance != nativeToken && (
             <span className="ml-2 text-xs px-2 bg-red-300 rounded-lg">Max</span>
           )}
         </div>
@@ -123,10 +122,10 @@ const Trade = () => {
         <input
           type="text"
           className="border-0 text-xl"
-          value={LGTToken}
+          value={TTTToken}
           onChange={(e) => updateLGTToken(e.target.value)}
         />
-        <div className="bg-slate-200 w-40 p-1 shadow-md rounded">LGT Token</div>
+        <div className="bg-slate-200 w-40 p-1 shadow-md rounded">TTT Token</div>
       </div>
       <div className="rounded flex justify-between bg-slate-50 p-3">
         <div></div>
@@ -134,10 +133,10 @@ const Trade = () => {
       </div>
 
       <div className="rounded flex justify-start  p-3 mt-2">
-        <span>1 XDC = {LGTTokenPrice} LGT</span>
+        <span>1 ETH = {TTTTokenPrice} TTT</span>
       </div>
 
-      {tokenBalance >= xdcToken ? (
+      {tokenBalance >= nativeToken ? (
         <div
           className="rounded-2xl flex justify-center bg-red-500 hover:bg-red-400 p-3 mt-2 text-2xl text-white cursor-pointer"
           onClick={buyToken}

@@ -3,7 +3,7 @@ const fs = require('fs');
 
 async function main() {
   const GameToken = await hre.ethers.getContractFactory("GameToken");
-  const gameToken = await GameToken.deploy("Lucky Game Token", "LGT");
+  const gameToken = await GameToken.deploy("Twenty Three Token", "TTT");
   await gameToken.deployed();
   console.log("gameToken Contract deployed to:", gameToken.address);
 

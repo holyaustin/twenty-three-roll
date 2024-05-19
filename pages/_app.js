@@ -5,7 +5,7 @@ import "../styles/globals.css";
 import { TransactionProvider } from "../context/TransactionContext";
 
 function MyApp({ Component, pageProps }) {
-  const desiredChainId = 2125031;
+  const desiredChainId = "2125031";
   return (
     <TransactionProvider>
       <ThirdwebProvider desiredChainId={desiredChainId}>

@@ -1,7 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("@nomiclabs/hardhat-waffle");
 require("dotenv").config({ path: ".env" });
-console.log(process.env.XINFIN_PRIVATE_KEY);
+console.log(process.env.PRIVATE_KEY);
 
 module.exports = {
   
@@ -12,7 +12,7 @@ module.exports = {
     },
     bubs: {
       url: 'https://bubs-sepolia.rpc.caldera.xyz/http',
-      accounts: process.env.PRIVATE_KEY,
+      accounts: [process.env.PRIVATE_KEY],
     },
   },
   solidity: {
